@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+        name="asteroid"
+        type="com.eselman.android.asteroidradar.common.model.Asteroid" />
+
+        <variable
+            name="asteroidClick"
+            type="com.eselman.android.asteroidradar.list.AsteroidListAdapter.AsteroidClick" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/asteroidDetailsContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/asteroidStatus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/asteroidName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{asteroid.codename}"
+                android:textAppearance="@style/Title"
+                tools:text="162385 (2000 BM 19)"
+                tools:textColor="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/asteroidDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Subtitle"
+                app:asteroidCloseApproachDate="@{asteroid.closeApproachDate}"
+                tools:text="2021-01-18"
+                tools:textColor="@color/colorPrimaryDark" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/asteroidStatus"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/asteroid_status_content_description"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/asteroidDetailsContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:statusIcon="@{asteroid.potentiallyHazardous}"
+            tools:src="@drawable/ic_status_potentially_hazardous" />
+
+        <View
+            android:id="@+id/clickableOverlay"
+            android:layout_width="411dp"
+            android:layout_height="0dp"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="@{() -> asteroidClick.onClick(asteroid)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
